@@ -1,0 +1,51 @@
+{%  extends 'base.html.twig'   %} 
+
+{% block body %}
+
+    <article>
+        <h2>{{article.title}} </h2>
+        <div class="metadata">Ecrit le {{article.createdAt | date('d/m/y') }} dans la categorie
+        {{article.category.title}}</div>
+        <div class="content">
+            <img src ="{{article.image}}" alt ="">
+            <p>xy p>lorem40 
+            
+            </p>
+        <hr>
+                    {{article.content | raw }} 
+        </div>
+    </article>
+<section id="commentaires">
+    <h1>{{  article.comments | length }} COMMENTAIRES :</h1>
+    {% for moulaye in article.comments %} 
+        <div class="comment">
+            <div class="row">
+                <div class="col-3">
+                    {{moulaye.author}}
+
+                </div>
+                <div class="col">
+                    {{moulaye.content | raw }}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    
+</section>
+    <section id="commenter">
+        {% if app.user %}
+
+            <h1>Laisser un commentaire...</h1>
+            {{form_start(commentForm)}}
+            {{form_row(commentForm.author,{'label':'email'} )}}
+            {{form_row(commentForm.content,{'label':'commentaire'} )}}
+            <button type="submit" class="btn btn-success">COMMENTER</button>
+            {{form_end(commentForm)}}
+
+        {% else %}
+            <h4>Veuillez vous connecter pour commenter cliquer<a href="{{ path('security_login') }}" class="btn btn-primary">ICI</a></h4>
+        {% endif %}
+    </section>
+
+{% endblock %}

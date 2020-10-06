@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}blog symfony{% endblock %}
+
+{% block body %}
+
+<section class="articles">
+{% for article in articles  %}
+        <article>
+            <h2>{{ article.title }} </h2>
+            <div class="metadata">Ecrit le {{article.createdAT | date('d/m/y')}} à {{ article.createdAT | date('H:i') }} </div>
+            <div class="content">
+                <img src ="{{article.image}}" alt ="">
+                <p>{{article.content | raw }} </p>
+                <a href ="{{ path('blog_show' , {'id': article.id }) }}" class="btn btn-primary">Lire la suite </a>
+            </div>
+        </article>
+    {% endfor %}
+     <br>
+    
+
+
+</section>
+
+{% endblock %}
